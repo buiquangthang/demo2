@@ -18,9 +18,9 @@ RSpec.describe SessionsController, type: :controller do
         password: ""
       } }
       expect(response).to render_template(:new)
-      expect(flash[:danger]).to have_at_least(1).items
-      redirect_to root_path
-      # expect(flash[:danger]).to be_empty
+      expect(flash).to have_at_least(1).items
+      get :new
+      expect(flash).to be_empty
     end
   end
 end
