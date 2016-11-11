@@ -72,7 +72,7 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # Send mail
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => 'https://demo-project-framgia.herokuapp.com/' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.default :charset => "utf-8"
