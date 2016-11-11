@@ -36,6 +36,9 @@ gem 'jbuilder', '~> 2.5'
 # Using boostrap
 gem 'bootstrap-sass'
 gem 'slim'
+gem 'faker'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
@@ -59,6 +62,7 @@ group :test do
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
   gem 'rspec-collection_matchers'
+  gem 'rails-controller-testing'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

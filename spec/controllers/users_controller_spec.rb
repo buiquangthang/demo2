@@ -9,4 +9,34 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  describe "signing up with invalid information" do
+    it "should not work and should go back to the signup form" do
+      get :new
+      expect do
+        post :create, user: { 
+          name:                  "",
+          email:                 "user@triculi",
+          password:              "buajaja",
+          password_confirmation: "juababa" 
+        }
+      end.to change{ User.count }.by(0)
+      expect(response).to render_template(:new)
+    end
+  end
+
+  describe "signing up with valid information" do
+    it "should work and should redirect to user's show view" do
+      get :new
+      expect do
+        post :create, user: { 
+          name:                  "Triculi",
+          email:                 "triculito@mail.com",
+          password:              "worldtriculi",
+          password_confirmation: "worldtriculi"
+        }
+      end.to change{ User.count }.from(0).to(1)
+      expect(response).to redirect_to(action: :show, id: assigns(:user).id)
+      expect(flash[:success]).to have_at_least(1).items
+    end
+  end
 end
