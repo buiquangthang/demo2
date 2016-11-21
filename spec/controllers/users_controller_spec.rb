@@ -35,8 +35,8 @@ RSpec.describe UsersController, type: :controller do
           password_confirmation: "worldtriculi"
         }
       end.to change{ User.count }.from(0).to(1)
-      expect(response).to redirect_to(action: :show, id: assigns(:user).id)
-      expect(flash[:success]).to have_at_least(1).items
+      expect(response).to redirect_to(action: :home, controller: :static_pages)
+      expect(flash[:info]).to have_at_least(1).items
     end
   end
 end

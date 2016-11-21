@@ -2,8 +2,11 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-  subject { User.new(name: "Example User", email: "user@example.com",
-                      password: "thangbui", password_confirmation: "thangbui")}
+  # subject { User.new(name: "Example User", email: "user@example.com",
+  #                     password: "thangbui", password_confirmation: "thangbui")}
+
+  subject { FactoryGirl.build(:user)}
+
   describe "Valid data" do
     it {expect(subject).to be_valid}
   end
