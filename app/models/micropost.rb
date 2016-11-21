@@ -6,6 +6,14 @@ class Micropost < ApplicationRecord
   validates :content, presence: true, length: { maximum: 140 }
   validate  :picture_size
 
+  def self.to_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv << column_names
+      all.each do |micropost|
+        csv << micropost.attributes.values_at(*column_names)
+      end
+    end
+  end
   private
 
     # Validates the size of an uploaded picture.
