@@ -37,7 +37,10 @@ Given(/^I was login before$/) do
 end
 
 When(/^I click logout link$/) do
-    click_link "Log out"
+  within_window(page.driver.browser.window_handles.last) do
+    find('a.dropdown-toggle').click # assuming you only have one a.dropdown-toggle
+    click_link 'Log out'
+  end 
 end
 
 Then(/^I must see the home page$/) do

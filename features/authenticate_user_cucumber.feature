@@ -1,7 +1,7 @@
 Feature: Authenticate
   In order to use the provided service
   As a User
-  I wan to log in or log out my account
+  I want to log in or log out my account
 
 Scenario: User goes to the login page
   When I go to the home page
