@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe UserMailerMailer, type: :mailer do
+RSpec.describe UserMailer, type: :mailer do
   describe "account_activation" do
     let(:mail) { UserMailerMailer.account_activation }
 
