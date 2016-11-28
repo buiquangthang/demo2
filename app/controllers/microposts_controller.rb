@@ -16,6 +16,8 @@ class MicropostsController < ApplicationController
   def show
     @micropost = Micropost.find(params[:id])
     @user = @micropost.user
+    @comments = @micropost.comments.order(created_at: :desc)
+                .paginate(page: params[:page]).per_page(15)
   end
 
   def destroy

@@ -24,10 +24,24 @@ users = User.order(:created_at).take(6)
   users.each { |user| user.microposts.create!(content: content) }
 end
 
+
 # Following relationships
 users = User.all
 user  = users.first
 following = users[2..50]
 followers = users[3..40]
-following.each { |followed| user.follow(followed) }
-followers.each { |follower| follower.follow(user) }
+following.each do |followed| 
+  user.follow(followed)
+  followed.microposts.each do |micropost|
+    content = Faker::Lorem.sentence(6)
+    micropost.comments.create!(content: content, user_id: user.id)
+  end
+end
+followers.each do |follower| 
+  follower.follow(user)
+  user.microposts.each do |micropost|
+    content = Faker::Lorem.sentence(6)
+    micropost.comments.create!(content: content, user_id: follower.id)
+  end
+end
+# Create comment

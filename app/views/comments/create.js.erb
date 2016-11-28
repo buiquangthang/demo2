@@ -1,0 +1,3 @@
+$(".microposts").prepend("<%= escape_javascript render(:partial => @comment) %>");
+$("#content_comment").val("");
+$("#comment_quantity").text("Comments (<%= @micropost.comments.count %>)")

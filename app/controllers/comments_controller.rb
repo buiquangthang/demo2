@@ -3,6 +3,13 @@ class CommentsController < ApplicationController
   before_action :find_micropost, only: [:create, :edit, :update, :destroy]
   before_action :find_comment, only: [:edit, :update, :destroy]
   def create
+    @comment = current_user.comments.build(content: params[:comment][:content], 
+                                            micropost_id: params[:micropost_id])
+    if @comment.save
+      respond_to do |format|
+        format.js
+      end
+    end
   end
 
   def edit
@@ -12,6 +19,12 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    @comment.destroy
+    # flash[:success] = "Comment deleted"
+    # redirect_to request.referrer || root_url
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

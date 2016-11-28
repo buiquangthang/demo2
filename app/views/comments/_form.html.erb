@@ -1,0 +1,24 @@
+<%= form_for([@micropost, @micropost.comments.build], remote: true) do |f| %>
+  <div class="row">
+    <div class="col-md-10">
+      <div class="field">
+        <%= f.text_area :content, id: "content_comment", placeholder: "Compose new comment..." %>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <%= f.submit "Comment", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+<script type="text/javascript">
+ $('#content_comment').keypress(function(e) {
+  if (e.which == "13") {
+    var con =  {content: (this).value};
+    $.ajax({
+      url: "<%= micropost_comments_path(@micropost) %>",
+      type: "POST",
+      data: { comment: con}
+     })
+  }
+});
+</script>
