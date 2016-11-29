@@ -1,0 +1,2 @@
+$("#comment-<%= @comment.id %>").find(".content").html("<%= escape_javascript text_field_tag 'comment_edit', @comment.content, remote: true %>");
+$("#comment-<%= @comment.id %>").find(".timestamp").html("<a href='#'>Cancel</a>");

@@ -59,4 +59,9 @@ module SessionsHelper
     session[:forwarding_url] = request.original_url if request.get?
   end
 
+  # Permision comment
+  def can_comment?(followed, post)
+    relation = Relationship.find_by(follower_id: current_user.id, followed_id: followed)
+    post.user == current_user || !relation.nil?
+  end
 end

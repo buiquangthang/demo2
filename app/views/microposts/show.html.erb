@@ -4,7 +4,7 @@
     <section class="user_info">
       <h1>
         <%= gravatar_for @user %>
-        <%= @user.name %>
+        <%= link_to @user.name, @user %>
       </h1>
     </section>
     <section class="stats">
@@ -13,10 +13,12 @@
   </aside>
 
   <div class="col-md-8">
-    <p><%= @micropost.content %></p>
+    <h4><%= @micropost.content %></h4>
     <%= image_tag @micropost.picture.url if @micropost.picture? %>
-    <h4 id="comment_quantity">Comments (<%= @micropost.comments.count %>)</h4>
-    <%= render "comments/form"%>
+    <h5 id="comment_quantity">Comments (<%= @micropost.comments.count %>)</h5>
+    <% if logged_in? && can_comment?(@micropost.user.id, @micropost) %>
+      <%= render "comments/form"%>
+    <% end %>
     <% if @micropost.comments.any? %>
       <ol class="microposts">
         <%= render @comments %>

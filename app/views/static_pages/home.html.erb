@@ -26,9 +26,11 @@
       sample application.
     </h2>
 
-    <%= link_to "Sign up now!", '#', class: "btn btn-lg btn-primary" %>
+    <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
   </div>
-
-  <%= link_to image_tag("rails.png", alt: "Rails logo"),
-              'http://rubyonrails.org/' %>
+  
+  <div class="col-md-8 col-md-offset-2">
+    <h3>New Feed</h3>
+    <%= render 'shared/feed' %>
+  </div>
 <% end %>

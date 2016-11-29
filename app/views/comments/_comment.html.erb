@@ -1,4 +1,4 @@
-<li id="micropost-<%= comment.id %>">
+<li id="comment-<%= comment.id %>">
   <%= link_to gravatar_for(comment.user, size: 50), comment.user %>
   <span class="user"><%= link_to comment.user.name, comment.user %></span>
   <span class="content">
@@ -7,9 +7,19 @@
   <span class="timestamp">
     Commented <%= time_ago_in_words(comment.created_at) %> ago.
     <% if current_user?(comment.user) %>
-      <%= link_to "delete", micropost_comment_path(comment.micropost, comment),                              method: :delete,
-                                       data: { confirm: "You sure?" },
-                                       remote: true %>
+      <%= link_to "Delete", micropost_comment_path(comment.micropost, comment),                  method: :delete,
+                          data: { confirm: "You sure?" },
+                          remote: true %>
+      <%= link_to "Edit", edit_micropost_comment_path(comment.micropost, comment),
+                            remote: true %>
     <% end %>
   </span>
 </li>
+
+<script type="text/javascript">
+  $('#comment_edit').keypress(function(e) {
+    if (e.which == "13") {
+      console.log("Say hello");
+    }
+  });
+</script>
