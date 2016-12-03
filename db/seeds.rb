@@ -18,30 +18,33 @@ User.create!(name:  "Example User",
                activated_at: Time.zone.now)
 end
 
-users = User.order(:created_at).take(6)
-50.times do
-  content = Faker::Lorem.sentence(5)
-  users.each { |user| user.microposts.create!(content: content) }
+10.times do
+  cat = Category.create!(name: Faker::App.name,
+                   picture: Faker::Avatar.image)
+  10.times do
+    ques = Question.create(content: Faker::App.name, category_id: cat.id)
+    4.times do |n|
+      if n == 3
+        Answer.create!(content: Faker::App.name, is_correct: true, question_id: ques.id)
+      else
+        Answer.create!(content: Faker::App.name, is_correct: false, question_id: ques.id)
+      end
+    end
+  end
 end
 
 
 # Following relationships
 users = User.all
 user  = users.first
-following = users[2..50]
-followers = users[3..40]
+following = users[2..30]
+followers = users[3..20]
 following.each do |followed| 
   user.follow(followed)
-  followed.microposts.each do |micropost|
-    content = Faker::Lorem.sentence(6)
-    micropost.comments.create!(content: content, user_id: user.id)
-  end
+  Activity.create!(action: 1, source: followed.id, user_id: user.id)
 end
 followers.each do |follower| 
   follower.follow(user)
-  user.microposts.each do |micropost|
-    content = Faker::Lorem.sentence(6)
-    micropost.comments.create!(content: content, user_id: follower.id)
-  end
+  Activity.create(action: 1, source: user.id, user_id: follower.id)
 end
 # Create comment

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Question:</strong>
+  <%= @learn.question %>
+</p>
+
+<p>
+  <strong>Answer:</strong>
+  <%= @learn.answer %>
+</p>
+
+<p>
+  <strong>Lesson:</strong>
+  <%= @learn.lesson %>
+</p>
+
+<p>
+  <strong>Is correct:</strong>
+  <%= @learn.is_correct %>
+</p>
+
+<%= link_to 'Edit', edit_learn_path(@learn) %> |
+<%= link_to 'Back', learns_path %>

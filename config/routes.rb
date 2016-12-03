@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :activities
+  resources :learns
+  resources :answers
+  resources :questions
+  resources :categories do
+    resources :lessons
+  end
   get 'password_resets/new'
 
   get 'password_resets/edit'
