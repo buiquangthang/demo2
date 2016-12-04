@@ -10,12 +10,18 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
+    @lesson = Lesson.find(params[:id])
+    @result = @lesson.learns
   end
 
   # GET /lessons/new
   def new
-    @lesson = Lesson.new
-    @questions = Category.find(params[:category_id]).questions.order("RANDOM()").take(5)
+    category = Category.find(params[:category_id])
+    @questions = category.questions.order("RANDOM()").take(5)
+    @lesson = category.lessons.build
+    @questions.each do |question|
+      @lesson.learns.build question_id: question.id
+    end
   end
 
   # GET /lessons/1/edit
@@ -25,16 +31,17 @@ class LessonsController < ApplicationController
   # POST /lessons
   # POST /lessons.json
   def create
-    @lesson = Lesson.new(lesson_params)
-
-    respond_to do |format|
-      if @lesson.save
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully created.' }
-        format.json { render :show, status: :created, location: @lesson }
-      else
-        format.html { render :new }
-        format.json { render json: @lesson.errors, status: :unprocessable_entity }
+    @lesson = current_user.lessons.build(category_id: params[:category_id])
+    learns = params[:lesson][:learns_attributes]
+    if @lesson.save
+      learns.each do |key, value|
+        @lesson.learns.create(answer_id: value["answer_id"],
+                              question_id: value["question_id"],
+                              is_correct: Learn.correct?(value["answer_id"]))
       end
+      redirect_to category_lesson_path(@lesson.category, @lesson), notice: 'Lesson was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -70,6 +77,6 @@ class LessonsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lesson_params
-      params.require(:lesson).permit(:category_id, :score, :user_id)
+      params.require(:lesson).permit(:category_id, :score, :user_id, learns_attributes: [:question_id, :answer_id])
     end
 end
