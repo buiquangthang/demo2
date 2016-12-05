@@ -1,14 +1,33 @@
-<table>
-  <tr>
-    <th>Question</th>
-    <th>Your Answer</th>
-    <th>Correct Answer</th>
-  </tr>
-  <% @result.each do |learn| %>
-    <tr>
-      <td><%= get_question(learn.question_id) %></td>
-      <td><%= your_answer(learn.answer_id) %></td>
-      <td><%= correct_answer(learn.question_id) %></td>
-    </tr>
-  <% end %>
-</table>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="box box-primary">
+      <h1>Result</h1>
+      <div class="box-body">
+        <table class="table table-hover">
+          <tr>
+            <th>#</th>
+            <th>Question</th>
+            <th>Your Answer</th>
+            <th>Correct Answer</th>
+            <th>Correct</th>
+          </tr>
+          <% i=0 %>
+          <% @result.each do |learn| %>
+            <tr>
+              <td><%= i=i+1 %></td>
+              <td><%= get_question(learn.question_id) %></td>
+              <td><%= your_answer(learn.answer_id) %></td>
+              <td><%= correct_answer(learn.question_id) %></td>
+              <td></td>
+            </tr>
+          <% end %>
+        </table>
+        <div class="text-center">
+          <%= link_to "Categories", categories_path, class: "btn btn-primary" %>
+          <%= link_to "New Lesson", new_category_lesson_path(@lesson.category_id),
+                class: "btn btn-warning" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

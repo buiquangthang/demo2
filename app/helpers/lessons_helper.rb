@@ -8,7 +8,11 @@ module LessonsHelper
   end
 
   def your_answer(id)
-    Answer.find(id).content
+    if id.nil?
+      return ""
+    else
+      Answer.find(id).content
+    end
   end
 
   def correct_answer(id)

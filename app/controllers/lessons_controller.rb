@@ -10,16 +10,15 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
-    @lesson = Lesson.find(params[:id])
     @result = @lesson.learns
   end
 
   # GET /lessons/new
   def new
     category = Category.find(params[:category_id])
-    @questions = category.questions.order("RANDOM()").take(5)
+    questions = category.questions.order("RANDOM()").take(5)
     @lesson = category.lessons.build
-    @questions.each do |question|
+    questions.each do |question|
       @lesson.learns.build question_id: question.id
     end
   end
@@ -34,6 +33,7 @@ class LessonsController < ApplicationController
     @lesson = current_user.lessons.build(category_id: params[:category_id])
     learns = params[:lesson][:learns_attributes]
     if @lesson.save
+      binding.pry
       learns.each do |key, value|
         @lesson.learns.create(answer_id: value["answer_id"],
                               question_id: value["question_id"],
