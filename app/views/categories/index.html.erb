@@ -4,25 +4,28 @@
       <div class="col-md-4">
         <div class="product-item">
           <div class="pi-img-wrapper">
-            <img src="<%= category.picture %>" class="img-responsive" alt="Berry Lace Dress">
+            <img src="<%= category.picture %>" class="img-responsive" 
+                 alt="Berry Lace Dress">
             <div>
-              <a href="#" class="btn">Word</a>
-              <a href="#" class="btn">History</a>
+              <%= link_to "Word", category_path(category), class: "btn" %>
+              <%= link_to "History", category_lessons_path(category), 
+                                     class: "btn" %>
             </div>
           </div>
           <h3><a href="shop-item.html"><%= category.name %></a></h3>
-          <div class="pi-price"><%= quantity_of_question(category.id) %></div>
-          <%= link_to "New Lesson", new_category_lesson_path(category), class: "btn add2cart"%>
+          <div class="pi-price">
+            <%= your_result(category.id)%>/<%= quantity_of_question(category.id) %>
+          </div>
+          <% if finished?(category.id) %>
+            <a class="btn add2cart disabled" href="#">Finish</a>
+          <% else %>
+            <%= link_to "New Lesson", new_category_lesson_path(category),                        
+                                      class: "btn add2cart" %>
+          <% end %>
           <div class="sticker sticker-new"></div>
         </div>
       </div>
     <% end %>
   </div>
 </div>
-<br>
-<br>
-<center>
-  <strong>Powered by <a href="http://j.mp/metronictheme" target="_blank">KeenThemes</a></strong>
-</center>
-<br>
-<br>
+

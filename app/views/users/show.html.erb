@@ -1,30 +1,81 @@
-<% provide(:title, @user.name) %>
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-    </section>
-    <section class="stats">
-      <%= render 'shared/stats' %>
-    </section>
-  </aside>
+<!-- Main content -->
+<section class="content">
+  <div class="row">
+    <div class="col-md-3">
+      <!-- Profile Image -->
+      <div class="box box-primary">
+        <div class="box-body box-profile">
+          <%= image_tag gravatar_for(@user), alt: "User profile picture", class: "profile-user-img img-responsive img-circle" %>
 
-  <div class="col-md-8">
-    <p>
-      Download:
-      <%= link_to "CSV", user_path(format: "csv") %> |
-      <%= link_to "Excel", user_path(format: "xls") %>
-    </p>
-    <%= render 'follow_form' if logged_in? %>
-    <% if @user.microposts.any? %>
-      <h3>Microposts (<%= @user.microposts.count %>)</h3>
-      <ol class="microposts">
-        <%= render @microposts %>
-      </ol>
-      <%= will_paginate @microposts %>
-    <% end %>
+          <h3 class="profile-username text-center"><%= @user.name%></h3>
+
+          <p class="text-muted text-center">Software Engineer</p>
+
+          <ul class="list-group list-group-unbordered">
+            <li class="list-group-item">
+              <b>Followers</b> <a class="pull-right"><%= @user.followers.count %></a>
+            </li>
+            <li class="list-group-item">
+              <b>Following</b> <a class="pull-right"><%= @user.following.count %></a>
+            </li>
+          </ul>
+
+          <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+
+      <!-- About Me Box -->
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">About Me</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+
+          <p class="text-muted">
+            B.S. in Computer Science from the University of Tennessee at Knoxville
+          </p>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-9">
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
+          <li><a href="#timeline" data-toggle="tab">Timeline</a></li>
+          <li><a href="#settings" data-toggle="tab">Settings</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="active tab-pane" id="activity">
+            <h1>Blank Tab 1</h1>
+            <br>
+          </div>
+          <!-- /.tab-pane -->
+          <div class="tab-pane" id="timeline">
+            <h1>Blank Tab 2</h1>
+            <br>
+          </div>
+          <!-- /.tab-pane -->
+
+          <div class="tab-pane" id="settings">
+            <h1>Blank Tab 3</h1>
+            <br>
+          </div>
+          <!-- /.tab-pane -->
+        </div>
+        <!-- /.tab-content -->
+      </div>
+      <!-- /.nav-tabs-custom -->
+    </div>
+    <!-- /.col -->
   </div>
-</div>
+  <!-- /.row -->
+
+</section>
+<!-- /.content -->

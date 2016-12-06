@@ -9,4 +9,9 @@ module ApplicationHelper
       page_title + " | " + base_title
     end
   end
+
+  def learned?(question_id, category_id)
+    learned_ids = Learn.learned_ids(current_user, category_id)
+    learned_ids.include? question_id
+  end
 end

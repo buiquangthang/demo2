@@ -91,3 +91,8 @@ p {
 padding: 0px;
 overflow: hidden;
 }
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+}

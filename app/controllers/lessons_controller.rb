@@ -4,7 +4,8 @@ class LessonsController < ApplicationController
   # GET /lessons
   # GET /lessons.json
   def index
-    @lessons = Lesson.all
+    @lessons = Lesson.where(category_id: params[:category_id],
+                            user_id: current_user.id)
   end
 
   # GET /lessons/1
@@ -16,7 +17,8 @@ class LessonsController < ApplicationController
   # GET /lessons/new
   def new
     category = Category.find(params[:category_id])
-    questions = category.questions.order("RANDOM()").take(5)
+    learned_ids = Learn.learned_ids(current_user,category)
+    questions = category.questions.question_not_learn(learned_ids)
     @lesson = category.lessons.build
     questions.each do |question|
       @lesson.learns.build question_id: question.id
@@ -33,17 +35,19 @@ class LessonsController < ApplicationController
     @lesson = current_user.lessons.build(category_id: params[:category_id])
     learns = params[:lesson][:learns_attributes]
     if @lesson.save
-      binding.pry
       learns.each do |key, value|
         @lesson.learns.create(answer_id: value["answer_id"],
                               question_id: value["question_id"],
                               is_correct: Learn.correct?(value["answer_id"]))
+        end
+        score = @lesson.learns.where(is_correct: true).count
+        @lesson.update(score: score)
+        redirect_to category_lesson_path(@lesson.category, @lesson), 
+        notice: 'Lesson was successfully created.'
+      else
+        render :new
       end
-      redirect_to category_lesson_path(@lesson.category, @lesson), notice: 'Lesson was successfully created.'
-    else
-      render :new
     end
-  end
 
   # PATCH/PUT /lessons/1
   # PATCH/PUT /lessons/1.json
@@ -79,4 +83,4 @@ class LessonsController < ApplicationController
     def lesson_params
       params.require(:lesson).permit(:category_id, :score, :user_id, learns_attributes: [:question_id, :answer_id])
     end
-end
+  end

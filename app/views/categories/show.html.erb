@@ -10,5 +10,27 @@
   <%= @category.picture %>
 </p>
 
+<table>
+  <tr>
+    <th>#</th>
+    <th>Word</th>
+    <th>Mean</th>
+    <th>Status</th>
+  </tr>
+  <% i=0 %>
+  <% @questions.each do |question| %>
+    <tr>
+      <th><%= i=i+1 %></th>
+      <th><%= question.content %></th>
+      <th><%= correct_answer(question.id) %></th>
+      <% if learned?(question.id, question.category_id) %>
+        <th>Yes</th>
+      <% else %>
+        <th>No</th>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+
 <%= link_to 'Edit', edit_category_path(@category) %> |
 <%= link_to 'Back', categories_path %>

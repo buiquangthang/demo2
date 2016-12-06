@@ -1,31 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Lessons</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Category</th>
-      <th>Score</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @lessons.each do |lesson| %>
-      <tr>
-        <td><%= lesson.category %></td>
-        <td><%= lesson.score %></td>
-        <td><%= lesson.user %></td>
-        <td><%= link_to 'Show', lesson %></td>
-        <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
-        <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Lesson', new_lesson_path %>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="box box-primary">
+      <h1>Your Lesson</h1>
+      <div class="box-body">
+        <table class="table table-hover">
+          <tr>
+            <th>#</th>
+            <th>Lesson</th>
+            <th>Score</th>
+            <th></th>
+          </tr>
+          <% i=0 %>
+          <% @lessons.each do |lesson| %>
+            <tr>
+              <td><%= i=i+1 %></td>
+              <td>Lesson <%= i %></td>
+              <td><%= lesson.score %> / <%= lesson.learns.count %></td>
+              <td><%= link_to 'Show', category_lesson_path(lesson.category_id, lesson), class: "btn btn-primary" %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

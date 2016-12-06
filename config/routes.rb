@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get 'category/index'
+  end
+
+  get 'search/index'
+
   resources :activities
   resources :learns
   resources :answers
