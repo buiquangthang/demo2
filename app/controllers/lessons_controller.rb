@@ -42,6 +42,7 @@ class LessonsController < ApplicationController
         end
         score = @lesson.learns.where(is_correct: true).count
         @lesson.update(score: score)
+        Activity.create!(user_id: current_user.id, action: 3, source: @lesson.id)
         redirect_to category_lesson_path(@lesson.category, @lesson), 
         notice: 'Lesson was successfully created.'
       else

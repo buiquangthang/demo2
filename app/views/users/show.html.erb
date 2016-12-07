@@ -59,6 +59,88 @@
           <!-- /.tab-pane -->
           <div class="tab-pane" id="timeline">
             <h1>Blank Tab 2</h1>
+            <ul class="timeline timeline-inverse">
+              <!-- timeline time label -->
+              <li class="time-label">
+                <span class="bg-red">
+                  10 Feb. 2014
+                </span>
+              </li>
+              <!-- /.timeline-label -->
+              <% @feeds.each do |feed| %>
+                <li>
+                  <i class="glyphicon glyphicon-user bg-blue"></i>
+
+                  <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+
+                    <h3 class="timeline-header no-border">
+                      <% if feed.action == 1 %>
+                        <a href="#"><%= feed.user.name %></a> following 
+                        <%= link_to User.find(feed.source).name, user_path(feed.source) %>
+                      <% elsif feed.action == 3 %>
+                        <a href="#"><%= feed.user.name %></a> had learn
+                        <%= Lesson.find(feed.source).score %> word in categories
+                        <%= link_to Lesson.find(feed.source).category.name, category_path(feed.source) %>
+                      <% end %>
+                    </h3>
+                  </div>
+                </li>
+
+               
+                
+              <% end %>
+              <div class="col-md-offset-3">
+                <%= will_paginate @feeds %>
+              </div>
+              
+              
+              <!-- timeline item -->
+              <li>
+                  <i class="glyphicon glyphicon-education bg-yellow"></i>
+
+                  <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+
+                    <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request
+                    </h3>
+                  </div>
+                </li>
+              <li>
+                <i class="glyphicon glyphicon-user bg-blue"></i>
+
+                <div class="timeline-item">
+                  <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+
+                  <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request
+                  </h3>
+                </div>
+              </li>
+
+              <li>
+                <i class="glyphicon glyphicon-education bg-yellow"></i>
+
+                <div class="timeline-item">
+                  <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+
+                  <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request
+                  </h3>
+                </div>
+              </li>
+              <!-- END timeline item -->
+
+              <!-- timeline time label -->
+              <li class="time-label">
+                <span class="bg-green">
+                  3 Jan. 2014
+                </span>
+              </li>
+
+              <!-- END timeline item -->
+              <li>
+                <i class="fa fa-clock-o bg-gray"></i>
+              </li>
+            </ul>
             <br>
           </div>
           <!-- /.tab-pane -->

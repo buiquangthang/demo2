@@ -10,13 +10,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
-    respond_to do |format|
-    # redirect_to root_url and return unless @user.activated == true
-      format.html { redirect_to root_url and return unless @user.activated == true }
-      format.csv { send_data @microposts.to_csv }
-      format.xls
-    end
+    @feeds = @user.activities.paginate(page: params[:page]).per_page(10)
   end
 
   def create
