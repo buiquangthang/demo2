@@ -18,10 +18,15 @@ class LessonsController < ApplicationController
   def new
     category = Category.find(params[:category_id])
     learned_ids = Learn.learned_ids(current_user,category)
-    questions = category.questions.question_not_learn(learned_ids)
-    @lesson = category.lessons.build
-    questions.each do |question|
-      @lesson.learns.build question_id: question.id
+    if learned_ids.empty?
+      flash[:danger] = "We has some error. Sory about that"
+      redirect_to request.referer
+    else
+      questions = category.questions.question_not_learn(learned_ids).take(5)
+      @lesson = category.lessons.build
+      questions.each do |question|
+        @lesson.learns.build question_id: question.id
+      end
     end
   end
 

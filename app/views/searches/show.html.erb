@@ -1,0 +1,15 @@
+<h1>Search Result</h1>
+
+<% if @results.empty? %>
+  <p>No record Found</p>
+<% else %>
+  <% @results.each do |c| %>
+    <br>
+
+    <div class="row">
+      <h1><%= c.content %></h1>
+      <p><%= c.answers.is_correct?.content %></p>
+    </div>
+  <% end %>
+  <%= will_paginate @results %>
+<% end %>

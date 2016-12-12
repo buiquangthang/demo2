@@ -3,6 +3,7 @@ class Question < ApplicationRecord
   has_many :answers
 
   scope :question_not_learn, -> (learned_ids){
-    where('id NOT IN (?)', learned_ids).take(5)
+    where('id NOT IN (?)', learned_ids)
   }
+
 end

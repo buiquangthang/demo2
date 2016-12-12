@@ -12,12 +12,12 @@
                                      class: "btn" %>
             </div>
           </div>
-          <h3><a href="shop-item.html"><%= category.name %></a></h3>
+          <h3><%= category.name %></h3>
           <div class="pi-price">
-            <%= your_result(category.id)%>/<%= quantity_of_question(category.id) %>
+            <%= your_result(category) %>/<%= quantity_of_question(category) %>
           </div>
-          <% if finished?(category.id) %>
-            <a class="btn add2cart disabled" href="#">Finish</a>
+          <% if is_finished?(category) %>
+            <a class="btn add2cart disabled">Finish</a>
           <% else %>
             <%= link_to "New Lesson", new_category_lesson_path(category),                        
                                       class: "btn add2cart" %>

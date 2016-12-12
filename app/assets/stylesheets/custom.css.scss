@@ -209,3 +209,15 @@ overflow: hidden;
   background-color: #f39c12 !important;
   color: #fff !important;
 }
+
+/* Lesson New */
+.processBox {
+  background-color: green;
+  position: fixed;
+  text-align: center;
+  float: right;
+  color: white;
+  h2 {
+    color: white;
+  }
+}

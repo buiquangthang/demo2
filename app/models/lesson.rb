@@ -4,4 +4,6 @@ class Lesson < ApplicationRecord
   has_many :learns
 
   accepts_nested_attributes_for :learns, :allow_destroy => true
+
+  scope :get_lesson_belongsto_user, -> user_id {where user_id: user_id}
 end

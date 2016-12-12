@@ -1,0 +1,27 @@
+<h1>Custom Search</h1>
+
+<%= form_for @search, html: {class: "pure-form"} do |s| %>
+  <div class="field">
+    <%= s.label :keywords %><br />
+    <%= s.text_field :keywords %>
+  </div>
+
+  <div class="field">
+    <%= s.label :category %><br />
+    <%= s.select :category, @categories.collect { |p| [ p.name, p.id ] }, include_blank: true %>
+  </div>
+
+    <div class="field">
+    <label>
+      <%= s.radio_button :learn, true %>Learn
+    </label>
+    <label>
+      <%= s.radio_button :learn, false %>Not Learn
+    </label>
+    
+  </div>
+
+  <div class="actions">
+    <%= s.submit "Search" %>
+  </div>
+<% end %>

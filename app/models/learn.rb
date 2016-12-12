@@ -6,7 +6,7 @@ class Learn < ApplicationRecord
   scope :learned_ids, -> (user_id, category_id){
     current_user = User.find(user_id)
     lesson_ids = current_user.lessons.where(category_id: category_id)
-    learned_ids = [0]
+    learned_ids = []
     lesson_ids.each do |lesson|
       lesson.learns.where(is_correct: true).each do |learn|
         learned_ids << learn.question_id
@@ -15,6 +15,20 @@ class Learn < ApplicationRecord
     return learned_ids
   }
 
+  scope :learned_ids_without_category, -> (user_id){
+    current_user = User.find(user_id)
+    lesson_ids = current_user.lessons
+    learned_ids = []
+    lesson_ids.each do |lesson|
+      lesson.learns.where(is_correct: true).each do |learn|
+        learned_ids << learn.question_id
+      end
+    end
+    return learned_ids
+  }
+
+  scope :is_correct?, -> {where is_correct: true}
+  
   def self.correct?(answer_id)
     if answer_id.nil?
       return false
