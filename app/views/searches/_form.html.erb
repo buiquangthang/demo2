@@ -1,0 +1,22 @@
+<%= form_for @search, html: {class: "pure-form"} do |s| %>
+  <div class="form-group">
+    <%= s.label :keywords %><br />
+    <%= s.text_field :keywords, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= s.label :category %><br />
+    <%= s.select :category, @categories.collect { |p| [ p.name, p.id ] }, {include_blank: true}, {class: "form-control"} %>
+  </div>
+
+  <div class="form-group">
+    <%= s.radio_button :learn, true %>
+    <%= s.label :learn, "Learn" %>
+    <%= s.radio_button :learn, false %>
+    <%= s.label :learn, "Not Learn"%>
+  </div>
+
+  <div class="form-group">
+    <%= s.submit "Search", class: "btn btn-primary" %>
+  </div>
+<% end %>

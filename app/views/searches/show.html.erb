@@ -1,15 +1,17 @@
-<h1>Search Result</h1>
-
-<% if @results.empty? %>
-  <p>No record Found</p>
-<% else %>
-  <% @results.each do |c| %>
-    <br>
-
-    <div class="row">
-      <h1><%= c.content %></h1>
-      <p><%= c.answers.is_correct?.content %></p>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="box box-primary">
+      <h1>Search Result</h1>
+      <h2>Total: <%= @results.count %> results</h2>
+      <div class="box-body">
+        <% if @results.empty? %>
+          <h2>No record Found</h2>
+        <% else %>
+          <div id="words">
+            <%= render 'words'%>
+          </div>
+        <% end %>
+      </div>
     </div>
-  <% end %>
-  <%= will_paginate @results %>
-<% end %>
+  </div>
+</div>

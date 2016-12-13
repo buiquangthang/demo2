@@ -1,3 +1,3 @@
-jQuery ->
+$(document).on 'turbolinks:load', ->
   $('#search_keywords').autocomplete
-    source: "/searches"
+    source: "/search_suggestions"

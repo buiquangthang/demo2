@@ -1,0 +1,31 @@
+<table class="table table-hover">
+  <tr>
+    <th>#</th>
+    <th>Word</th>
+    <th>Mean</th>
+    <th>Category</th>
+    <th>Learned</th>
+  </tr>
+  <% i=0 %>
+  <% @results.each do |c| %>
+    <tr>
+      <td><%= i=i+1 %></td>
+      <td><%= c.content %></td>
+      <td><%= c.answers.is_correct?.content %></td>
+      <td><%= c.category.name %></td>
+      <% if learned?(c.id, c.category_id) %>
+        <th>Yes</th>
+      <% else %>
+        <th>No</th>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+<div class="row">
+  <div class="col-md-2">
+    <%= link_to "Back", new_search_path, class: "btn btn-primary"%>
+  </div>
+  <div class="col-md-10">
+    <%= will_paginate @results %>
+  </div>
+</div>

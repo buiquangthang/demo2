@@ -38,3 +38,17 @@ function startTimer(duration, displayMinute, displaySecond) {
     }    
   }, 1000);  
 };
+
+$(function() {
+  $(".pagination a").on("click", function() {
+    $(".pagination").html("Page is loading...");
+    $.getScript(this.href);
+    return false;
+  });
+});
+
+$(document).on('turbolinks:load', function() {
+  return $('#search_keywords').autocomplete({
+    source: "/search_suggestions"
+  });
+})

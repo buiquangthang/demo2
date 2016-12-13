@@ -1,0 +1,7 @@
+middleware:
+  path_info: "PATH_INFO"
+  path: "/search_suggestions"
+  respone_code: 200
+  content_type: "Content-Type"
+  type: "application/json"
+  params: "term"
